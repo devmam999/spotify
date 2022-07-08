@@ -1,3 +1,4 @@
+package com.testdemo;
 import java.io.File; 
 import java.io.IOException; 
 import java.util.Scanner; 
@@ -33,7 +34,7 @@ public class SpotifyLikeApp {
         // create a scanner for user input
         Scanner input = new Scanner(System.in);
 
-        String userInput = "";
+        String userInput = "o";
         while (!userInput.equals("q")) {
 
             menu();
@@ -113,7 +114,7 @@ public class SpotifyLikeApp {
 
         // open the audio file
         // src\library\example audio\cropped_wav\Checkie_Brown_-_11_-_Wirklich_Wichtig_CB_27.wav
-        final File file = new File("./src/library/example audio/cropped_wav/Checkie_Brown_-_11_-_Wirklich_Wichtig_CB_27.wav");
+        final File file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/testdemo/spotify-example-code-and-audio/wav/Kitkat-Club-Welcome.wav");
 
         try {
         
