@@ -74,6 +74,21 @@ public class SpotifyLikeApp {
                 System.out.println("Permission to Dance by BTS");
                 System.out.println("Storybook by Scott Holmes");
                 System.out.println("Zumbido by The Dubbstyle");
+                System.out.print("Enter the title of the song you would like to listen to): ");
+                Scanner anotherInput = new Scanner(System.in);
+                userSong = anotherInput.nextLine();
+                userSong.toLowerCase();
+                anotherInput.close();
+                play();
+                break;
+            }
+            else if (userInput.equals("h")) {
+                if (name != null && author != null) {
+                    System.out.println("You have recently listened to " + name + "by" + author);
+                }
+                else {
+                    System.out.println("You haven't listened to any songs recently");
+                }
             }
 
         }
@@ -152,7 +167,7 @@ public class SpotifyLikeApp {
 
         // open the audio file
         // src\library\example audio\cropped_wav\Checkie_Brown_-_11_-_Wirklich_Wichtig_CB_27.wav
-        File file = null;
+        File file = new File("C:/Users/devesh/downloads/quiet.wav");
         if (userSong.equals("circles")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Circles.wav");
             name = "Circles";
@@ -204,17 +219,16 @@ public class SpotifyLikeApp {
             author = "Scott Holmes";
         }
         else if (userSong.equals("zumbudio")) {
-            file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/The-Dubbstyle-Zumbudio.wav");
-            name = "Zumbudio";
+            file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/The-Dubbstyle-Zumbido.wav");
+            name = "Zumbido";
             author = "The Dubbstyle";
         }
-        else if (name == "Permission to Dance") {
+        else if (name == "Permission to Dance" || userSong.equals("Permission to Dance")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Permission-To-Dance.wav");
+            name = "Permission to Dance";
+            author = "BTS";
         }
-        else {
-            System.out.println("I'm sorry, that song is unavailable. For our available songs, please press l");
-            menu();
-        }
+        
         try {
             
             // create clip 
@@ -226,15 +240,14 @@ public class SpotifyLikeApp {
             
             audioClip.open(in);
             audioClip.setMicrosecondPosition(0);
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            audioClip.start();
             //Tells the user what song they are listening to
             System.out.println("Now playing " + name + " by " + author);
-
 
         } catch(Exception e) {
             e.printStackTrace(); 
         }
-    
+        
     }
 }
 
