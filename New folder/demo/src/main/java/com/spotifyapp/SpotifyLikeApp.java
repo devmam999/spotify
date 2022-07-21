@@ -24,7 +24,7 @@ public class SpotifyLikeApp {
 
     // global variables for the app
     String status;
-    Long position;
+    static Long position;
     static Clip audioClip;
     static String userSong = "";
     static Scanner input = new Scanner(System.in);
@@ -49,7 +49,8 @@ public class SpotifyLikeApp {
 
             // do something
             handleMenu(userInput);
-            
+
+            //if user presses h without listening to any song, the program shouldn't just stop
             if (!userInput.equals("h")) {
                 break;
             }
@@ -97,85 +98,95 @@ public class SpotifyLikeApp {
         switch (playerAction) {
             case "p":
                 audioClip.stop();
-                System.out.print("Enter c to continue: ");
+                System.out.print("Enter r to resume: ");
                 Scanner continueMenu = new Scanner(System.in);
                 String continuing = continueMenu.nextLine();
                 continuing.toLowerCase();
-                if (continuing.equals("c")) {
+                if (continuing.equals("r")) {
                     audioClip.start();
                     playerMenu();
                 }
                 
                 break;
+            case "g":
+                position = audioClip.getMicrosecondPosition();
+                audioClip.stop();
+                long fastForward = position + 5000000;
+                audioClip.setMicrosecondPosition(fastForward);
+                audioClip.start();
+                playerMenu();
+                break;
+            case "r":
+                position = audioClip.getMicrosecondPosition();
+                audioClip.stop();
+                long rewind = position - 5000000;
+                audioClip.setMicrosecondPosition(rewind);
+                audioClip.start();
+                playerMenu();
+                break;
+            // if the user presses "s", the program won't stop. This is useful incase the user wants to access home
             case "s":
                 audioClip.stop();
 
         
-        String userInput = "o";
-        while (!userInput.equals("q")) {
-            
+                String userInput = "o";
+                while (!userInput.equals("q")) {
+                    
 
-            menu();
+                    menu();
 
-            
+                    
 
-            // get input
-            userInput = input.nextLine();
+                    // get input
+                    userInput = input.nextLine();
 
-            // accept upper or lower case commands
+                    // accept upper or lower case commands
 
-            userInput.toLowerCase();
+                    userInput.toLowerCase();
 
-            // do something
-            handleMenu(userInput);
+                    // do something
+                    handleMenu(userInput);
 
-            if (userInput.equals("s")) {
-                System.out.print("Enter the title of the song you would like to listen to (Available songs are in the library): ");
-                Scanner anotherInput = new Scanner(System.in);
-                userSong = anotherInput.nextLine();
-                userSong.toLowerCase();
-                anotherInput.close();
-                play();
-                playerMenu();
-                break;
-            }
-            if (userInput.equals("l")) {
-                //menu of songs the user can listen to
-                System.out.println("Here are the songs you can listen to:");
-                System.out.println("Cement Lunch by Ava Luna");
-                System.out.println("Journey of King by Bisou");
-                System.out.println("Tanzen by Checkie Brown");
-                System.out.println("Wirklich Wichtig by Checkie Brown");
-                System.out.println("Cirlces by Post Malone");
-                System.out.println("Vacaciones Salsa by Dee Yan Key");
-                System.out.println("El Preso Numero Nueve by Kathleen Martin");
-                System.out.println("Welcome by Kitkat Club");
-                System.out.println("Burn it Down by Mid Air Machine");
-                System.out.println("Permission to Dance by BTS");
-                System.out.println("Storybook by Scott Holmes");
-                System.out.println("Zumbido by The Dubbstyle");
-                System.out.print("Enter the title of the song you would like to listen to: ");
-                userSong = input.nextLine();
-                userSong.toLowerCase();
-                play();
-                playerMenu();
-                break;
-                
-            }
-            else if (userInput.equals("h")) {
-                if (name != null && author != null) {
-                    System.out.println("You have recently listened to " + name + " by " + author);
-                }
-                else {
-                    System.out.println("You haven't listened to any songs recently");
-                }
-            }
-            else if (userInput.equals("f")) {
-                System.out.println("This is a work in progress. Come back later when it's finished");
-            }
-            else if (userInput.equals("p")) {
-                break;
-            }
+                    if (userInput.equals("s")) {
+                        System.out.print("Enter the title of the song you would like to listen to (Available songs are in the library): ");
+                        Scanner anotherInput = new Scanner(System.in);
+                        userSong = anotherInput.nextLine();
+                        userSong.toLowerCase();
+                        anotherInput.close();
+                        play();
+                        playerMenu();
+                        break;
+                    }
+                    if (userInput.equals("l")) {
+                        //menu of songs the user can listen to
+                        System.out.println("Here are the songs you can listen to:");
+                        System.out.println("Cement Lunch by Ava Luna");
+                        System.out.println("Journey of King by Bisou");
+                        System.out.println("Tanzen by Checkie Brown");
+                        System.out.println("Wirklich Wichtig by Checkie Brown");
+                        System.out.println("Cirlces by Post Malone");
+                        System.out.println("Vacaciones Salsa by Dee Yan Key");
+                        System.out.println("El Preso Numero Nueve by Kathleen Martin");
+                        System.out.println("Welcome by Kitkat Club");
+                        System.out.println("Burn it Down by Mid Air Machine");
+                        System.out.println("Permission to Dance by BTS");
+                        System.out.println("Storybook by Scott Holmes");
+                        System.out.println("Zumbido by The Dubbstyle");
+                        System.out.print("Enter the title of the song you would like to listen to: ");
+                        userSong = input.nextLine();
+                        userSong.toLowerCase();
+                        play();
+                        playerMenu();
+                        break;
+                        
+                    }
+                    
+                    else if (userInput.equals("f")) {
+                        System.out.println("This is a work in progress. Come back later when it's finished");
+                    }
+                    else if (userInput.equals("q")) {
+                        break;
+                    }
 
         }
 
@@ -185,6 +196,8 @@ public class SpotifyLikeApp {
         }
 
                 break;
+
+            
 
             default:
                 break;
@@ -272,6 +285,7 @@ public class SpotifyLikeApp {
 
             case "f":
                 System.out.println("-->Favorites<--");
+                System.out.println("This is a work in progress. Come back when it's finished");
                 break;    
             case "q":
                 System.out.println("-->Quit<--");
@@ -355,10 +369,6 @@ public class SpotifyLikeApp {
             name = "Permission to Dance";
             author = "BTS";
         }
-        else {
-            System.out.println("I'm sorry, but that song is unavailable. Check the library for the songs you can play");
-        }
-        
 
         try {
             
@@ -373,6 +383,7 @@ public class SpotifyLikeApp {
             audioClip.open(in);
             audioClip.setMicrosecondPosition(0);
             audioClip.start();
+
             //Tells the user what song they are listening to
             if (name != null) {
                 System.out.println("Now playing " + name + " by " + author);
