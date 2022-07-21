@@ -24,6 +24,7 @@ public class SpotifyLikeApp {
 
     // global variables for the app
     String status;
+    static boolean isFavorite;
     static Long position;
     static Clip audioClip;
     static String userSong = "";
@@ -124,6 +125,11 @@ public class SpotifyLikeApp {
                 audioClip.start();
                 playerMenu();
                 break;
+            case "f":
+                isFavorite = true;
+                System.out.println("Song is now a favorite. To access a favorite, press f on the homescreen");
+                playerMenu();
+                break;
             // if the user presses "s", the program won't stop. This is useful incase the user wants to access home
             case "s":
                 audioClip.stop();
@@ -179,10 +185,6 @@ public class SpotifyLikeApp {
                         playerMenu();
                         break;
                         
-                    }
-                    
-                    else if (userInput.equals("f")) {
-                        System.out.println("This is a work in progress. Come back later when it's finished");
                     }
                     else if (userInput.equals("q")) {
                         break;
@@ -285,7 +287,9 @@ public class SpotifyLikeApp {
 
             case "f":
                 System.out.println("-->Favorites<--");
-                System.out.println("This is a work in progress. Come back when it's finished");
+                if (isFavorite = true) {
+                    System.out.println("You have recently favorited " + name + " by " + author);
+                }
                 break;    
             case "q":
                 System.out.println("-->Quit<--");
@@ -313,61 +317,73 @@ public class SpotifyLikeApp {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Circles.wav");
             name = "Circles";
             author = "Post Malone";
+            isFavorite = false;
         }
         else if (userSong.equals("cement lunch")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Ava-Luna-Cement-Lunch.wav");
             name = "Cement Lunch";
             author = "Ava Luna";
+            isFavorite = false;
         }
         else if (userSong.equals("journey of king")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Bisou-Journey-Of-King.wav");
             name = "Journey of King";
             author = "Bisou";
+            isFavorite = false;
         }
         else if (userSong.equals("tanzen")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Checkie-Brown-Tanzen.wav");
             name = "Tanzen";
             author = "Checkie Brown";
+            isFavorite = false;
         }
         else if (userSong.equals("wirklich wichtig")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Checkie-Brown-Wirklich-Wichtig.wav");
             name = "Wirklich Wichtig";
             author = "Checkie Brown";
+            isFavorite = false;
         }
         else if (userSong.equals("vacaciones salsa")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Dee-Yan-Key-Vacaciones-Salsa.wav");
             name = "Vacaciones Salsa";
             author = "Dee Yan-Key";
+            isFavorite = false;
         }
         else if (userSong.equals("el preso numero nueve")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Kathleen-Martin-El-Preso-Numero-Nueve.wav");
             name = "El Preso Numero Nueve";
             author = "Kathleen Martin";
+            isFavorite = false;
         }
         else if (userSong.equals("welcome")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Kitkat-Club-Welcome.wav");
             name = "Welcome";
             author = "Kitkat Club";
+            isFavorite = false;
         }
         else if (userSong.equals("burn it down")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Mid-Air-Machine-Burn-It-Down.wav");
             name = "Burn It Down";
             author = "Midair Machine";
+            isFavorite = false;
         }
         else if (userSong.equals("storybook")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Scott-Holmes-Storybook.wav");
             name = "Storybook";
             author = "Scott Holmes";
+            isFavorite = false;
         }
         else if (userSong.equals("zumbido")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/The-Dubbstyle-Zumbido.wav");
             name = "Zumbido";
             author = "The Dubbstyle";
+            isFavorite = false;
         }
         else if (name == "Permission to Dance" || userSong.equals("permission to dance")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Permission-To-Dance.wav");
             name = "Permission to Dance";
             author = "BTS";
+            isFavorite = false;
         }
 
         try {
