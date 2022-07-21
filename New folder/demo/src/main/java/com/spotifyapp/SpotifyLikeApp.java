@@ -1,7 +1,6 @@
 package com.spotifyapp;
 import java.io.File; 
 import java.io.IOException; 
-import java.util.Scanner; 
   
 import javax.sound.sampled.AudioInputStream; 
 import javax.sound.sampled.AudioSystem; 
@@ -14,7 +13,7 @@ import javax.sound.sampled.DataLine.Info;
 
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
-
+import java.util.*;
 /*
     To compile: javac SpotifyLikeApp.java
     To run: java SpotifyLikeApp
@@ -28,17 +27,97 @@ public class SpotifyLikeApp {
     Long position;
     static Clip audioClip;
     static String userSong = "";
+    static Scanner input = new Scanner(System.in);
 
     // "main" makes this class a java app that can be executed
     public static void main(final String[] args) {
-
-        // create a scanner for user input
-        Scanner input = new Scanner(System.in);
-
+        
         String userInput = "o";
         while (!userInput.equals("q")) {
+            
 
             menu();
+
+            
+
+            // get input
+            userInput = input.nextLine();
+
+            // accept upper or lower case commands
+
+            userInput.toLowerCase();
+
+            // do something
+            handleMenu(userInput);
+            
+            if (!userInput.equals("h")) {
+                break;
+            }
+
+        }
+
+
+    }
+
+    /**
+     * 
+     */
+    public static void playerMenu() {
+        
+
+        String playerAction = "o";
+        while (!playerAction.equals("s")) {
+           
+            songMenu();
+            
+            playerAction = input.nextLine();
+
+            playerAction.toLowerCase();
+
+            handleSongMenu(playerAction);
+
+            break;
+        }
+
+    }
+
+    public static void songMenu() {
+        System.out.println("---- SpotifyLikeApp ----");
+        System.out.println("[P]ause");
+        System.out.println("[S]top");
+        System.out.println("[R]ewind 5 seconds");
+        System.out.println("[G]o forward 5 seconds");
+        System.out.println("[F]avorite");
+        System.out.print("");
+
+        System.out.println("");
+        System.out.print("");
+    }
+    public static void handleSongMenu(String playerAction) {
+        switch (playerAction) {
+            case "p":
+                audioClip.stop();
+                System.out.print("Enter c to continue: ");
+                Scanner continueMenu = new Scanner(System.in);
+                String continuing = continueMenu.nextLine();
+                continuing.toLowerCase();
+                if (continuing.equals("c")) {
+                    audioClip.start();
+                    playerMenu();
+                }
+                
+                break;
+            case "s":
+                audioClip.stop();
+
+        
+        String userInput = "o";
+        while (!userInput.equals("q")) {
+            
+
+            menu();
+
+            
 
             // get input
             userInput = input.nextLine();
@@ -57,9 +136,10 @@ public class SpotifyLikeApp {
                 userSong.toLowerCase();
                 anotherInput.close();
                 play();
+                playerMenu();
                 break;
             }
-            else if (userInput.equals("l")) {
+            if (userInput.equals("l")) {
                 //menu of songs the user can listen to
                 System.out.println("Here are the songs you can listen to:");
                 System.out.println("Cement Lunch by Ava Luna");
@@ -74,28 +154,41 @@ public class SpotifyLikeApp {
                 System.out.println("Permission to Dance by BTS");
                 System.out.println("Storybook by Scott Holmes");
                 System.out.println("Zumbido by The Dubbstyle");
-                System.out.print("Enter the title of the song you would like to listen to): ");
-                Scanner anotherInput = new Scanner(System.in);
-                userSong = anotherInput.nextLine();
+                System.out.print("Enter the title of the song you would like to listen to: ");
+                userSong = input.nextLine();
                 userSong.toLowerCase();
-                anotherInput.close();
                 play();
+                playerMenu();
                 break;
+                
             }
             else if (userInput.equals("h")) {
                 if (name != null && author != null) {
-                    System.out.println("You have recently listened to " + name + "by" + author);
+                    System.out.println("You have recently listened to " + name + " by " + author);
                 }
                 else {
                     System.out.println("You haven't listened to any songs recently");
                 }
             }
+            else if (userInput.equals("f")) {
+                System.out.println("This is a work in progress. Come back later when it's finished");
+            }
+            else if (userInput.equals("p")) {
+                break;
+            }
 
         }
 
         // close the scanner
-        input.close();
+        if (userInput.equals("q")) {
+            input.close();
+        }
 
+                break;
+
+            default:
+                break;
+        }
     }
 
     /*
@@ -107,6 +200,7 @@ public class SpotifyLikeApp {
         System.out.println("[H]ome");
         System.out.println("[S]earch by title");
         System.out.println("[L]ibrary");
+        System.out.println("[F]avorites");
         System.out.println("[P]lay");
         System.out.println("[Q]uit");
         System.out.print("Enter q to Quit:");
@@ -129,14 +223,43 @@ public class SpotifyLikeApp {
 
             case "h":
                 System.out.println("-->Home<--");
+                if (name != null && author != null) {
+                    System.out.println("You have recently listened to " + name + " by " + author);
+                }
+                else {
+                    System.out.println("You haven't listened to any songs recently");
+                }
                 break;
 
             case "s":
-                System.out.println("-->Search by Title<--");
+                System.out.println("-->Search by Title<--");               
+                System.out.print("Enter the title of the song you would like to listen to (Available songs are in the library): ");
+                userSong = input.nextLine();
+                userSong.toLowerCase();
+                play();
+                playerMenu();
                 break;
 
             case "l":
                 System.out.println("-->Library<--");
+                System.out.println("Here are the songs you can listen to:");
+                System.out.println("Cement Lunch by Ava Luna");
+                System.out.println("Journey of King by Bisou");
+                System.out.println("Tanzen by Checkie Brown");
+                System.out.println("Wirklich Wichtig by Checkie Brown");
+                System.out.println("Cirlces by Post Malone");
+                System.out.println("Vacaciones Salsa by Dee Yan Key");
+                System.out.println("El Preso Numero Nueve by Kathleen Martin");
+                System.out.println("Welcome by Kitkat Club");
+                System.out.println("Burn it Down by Mid Air Machine");
+                System.out.println("Permission to Dance by BTS");
+                System.out.println("Storybook by Scott Holmes");
+                System.out.println("Zumbido by The Dubbstyle");
+                System.out.print("Enter the title of the song you would like to listen to: ");
+                userSong = input.nextLine();
+                userSong.toLowerCase();
+                play();
+                playerMenu();
                 break;
                 
             case "p":
@@ -144,8 +267,12 @@ public class SpotifyLikeApp {
                 name = "Permission to Dance";
                 author = "BTS";
                 play();
+                playerMenu();
                 break;
 
+            case "f":
+                System.out.println("-->Favorites<--");
+                break;    
             case "q":
                 System.out.println("-->Quit<--");
                 break;
@@ -218,20 +345,25 @@ public class SpotifyLikeApp {
             name = "Storybook";
             author = "Scott Holmes";
         }
-        else if (userSong.equals("zumbudio")) {
+        else if (userSong.equals("zumbido")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/The-Dubbstyle-Zumbido.wav");
             name = "Zumbido";
             author = "The Dubbstyle";
         }
-        else if (name == "Permission to Dance" || userSong.equals("Permission to Dance")) {
+        else if (name == "Permission to Dance" || userSong.equals("permission to dance")) {
             file = new File("C:/Users/devesh/Documents/GitHub/spotify/New folder/demo/src/main/java/com/spotifyapp/spotify-example-code-and-audio/wav/Permission-To-Dance.wav");
             name = "Permission to Dance";
             author = "BTS";
         }
+        else {
+            System.out.println("I'm sorry, but that song is unavailable. Check the library for the songs you can play");
+        }
         
+
         try {
             
-            // create clip 
+            // create clip l
+
             audioClip = AudioSystem.getClip();
 
             // get input stream
@@ -242,11 +374,16 @@ public class SpotifyLikeApp {
             audioClip.setMicrosecondPosition(0);
             audioClip.start();
             //Tells the user what song they are listening to
-            System.out.println("Now playing " + name + " by " + author);
+            if (name != null) {
+                System.out.println("Now playing " + name + " by " + author);
+            }
 
-        } catch(Exception e) {
-            e.printStackTrace(); 
+        } 
+        catch(Exception e) {
+            e.printStackTrace();
         }
+
+        
         
     }
 }
